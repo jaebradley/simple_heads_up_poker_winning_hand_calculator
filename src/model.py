@@ -22,3 +22,7 @@ class Hand:
         self.cards = cards
 
         assert cards.__len__() == 5
+
+
+class HandRanking:
+    HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush = range(9)

@@ -157,9 +157,14 @@ class FullHouse(HandRanking):
 
 
 class Flush(HandRanking):
-    def __init__(self, suit):
+    def __init__(self, suit, first_kicker, second_kicker, third_kicker, fourth_kicker, fifth_kicker):
         HandRanking.__init__(self)
         self.suit = suit
+        self.first_kicker = first_kicker
+        self.second_kicker = second_kicker
+        self.third_kicker = third_kicker
+        self.fourth_kicker = fourth_kicker
+        self.fifth_kicker = fifth_kicker
 
 
 class Straight(HandRanking):

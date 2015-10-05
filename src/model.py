@@ -130,4 +130,75 @@ class Hand:
 
 
 class HandRanking:
-    HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush = range(9)
+    def __init__(self):
+        pass
+
+
+class StraightFlush(HandRanking):
+
+    def __init__(self, high_card):
+        HandRanking.__init__(self)
+        self.high_value = high_card.value
+        self.suit = high_card.suit
+
+
+class FourOfAKind(HandRanking):
+    def __init__(self, four_of_a_kind_value, kicker_value):
+        HandRanking.__init__(self)
+        self.four_of_a_kind_value = four_of_a_kind_value
+        self.kicker_value = kicker_value
+
+
+class FullHouse(HandRanking):
+    def __init__(self, three_of_a_kind_value, two_of_a_kind_value):
+        HandRanking.__init__(self)
+        self.three_of_a_kind_value = three_of_a_kind_value
+        self.two_of_a_kind_value = two_of_a_kind_value
+
+
+class Flush(HandRanking):
+    def __init__(self, suit):
+        HandRanking.__init__(self)
+        self.suit = suit
+
+
+class Straight(HandRanking):
+
+    def __init__(self, high_value):
+        HandRanking.__init__(self)
+        self.high_value = high_value
+
+
+class ThreeOfAKind(HandRanking):
+    def __init__(self, three_of_a_kind_value, first_kicker_value, second_kicker_value):
+        HandRanking.__init__(self)
+        self.three_of_a_kind_value = three_of_a_kind_value
+        self.first_kicker_value = first_kicker_value
+        self.second_kicker_value = second_kicker_value
+
+
+class TwoPair(HandRanking):
+    def __init__(self, highest_pair_value, lowest_pair_value, kicker_value):
+        HandRanking.__init__(self)
+        self.highest_pair_value = highest_pair_value
+        self.lowest_pair_value = lowest_pair_value
+        self.kicker_value = kicker_value
+
+
+class OnePair(HandRanking):
+    def __init__(self, pair_value, first_kicker_value, second_kicker_value, third_kicker_value):
+        HandRanking.__init__(self)
+        self.pair_value = pair_value
+        self.first_kicker_value = first_kicker_value
+        self.second_kicker_value = second_kicker_value
+        self.third_kicker_value = third_kicker_value
+
+
+class HighCard(HandRanking):
+    def __init__(self, high_card_value, first_kicker_value, second_kicker_value, third_kicker_value, fourth_kicker_value):
+        HandRanking.__init__(self)
+        self.high_card_value = high_card_value
+        self.first_kicker_value = first_kicker_value
+        self.second_kicker_value = second_kicker_value
+        self.third_kicker_value = third_kicker_value
+        self.fourth_kicker_value = fourth_kicker_value

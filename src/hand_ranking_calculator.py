@@ -188,6 +188,33 @@ class HandRankingCalculator:
             return False
 
     @staticmethod
+    def calculate_one_pair(hand):
+        if HandRankingCalculator.is_one_pair(hand):
+            hand_value_counter = Counter([card.high_value for card in hand.cards])
+            hand_most_common_values = hand_value_counter.most_common()
+            pair_value = hand_most_common_values[0][0]
+            return OnePair(
+                pair_value,
+                hand_most_common_values[1][0],
+                hand_most_common_values[2][0],
+                hand_most_common_values[3][0]
+            )
+
+    @staticmethod
+    def calculate_high_card(hand):
+        if HandRankingCalculator.is_high_card(hand):
+            sorted_card_values = sorted([card.value for card in hand.cards], reverse=True)
+            return HighCard(
+                sorted_card_values[0],
+                sorted_card_values[1],
+                sorted_card_values[2],
+                sorted_card_values[3],
+                sorted_card_values[4]
+            )
+        else:
+            return False
+
+    @staticmethod
     def calculate_hand_ranking(hand):
         straight_flush_calculation = HandRankingCalculator.calculate_straight_flush(hand)
         if isinstance(straight_flush_calculation, StraightFlush):
@@ -200,4 +227,31 @@ class HandRankingCalculator:
                 full_house_calculation = HandRankingCalculator.calculate_full_house(hand)
                 if isinstance(full_house_calculation, FullHouse):
                     return full_house_calculation
+                else:
+                    flush_calculation = HandRankingCalculator.calculate_flush(hand)
+                    if isinstance(flush_calculation, Flush):
+                        return flush_calculation
+                    else:
+                        straight_calculation = HandRankingCalculator.calculate_straight(hand)
+                        if isinstance(straight_calculation, Straight):
+                            return straight_calculation
+                        else:
+                            three_of_a_kind_calculation = HandRankingCalculator.calculate_three_of_a_kind(hand)
+                            if isinstance(three_of_a_kind_calculation, ThreeOfAKind):
+                                return three_of_a_kind_calculation
+                            else:
+                                two_pair_calculation = HandRankingCalculator.calculate_two_pair(hand)
+                                if isinstance(two_pair_calculation, TwoPair):
+                                    return two_pair_calculation
+                                else:
+                                    one_pair_calculation = HandRankingCalculator.calculate_one_pair(hand)
+                                    if isinstance(one_pair_calculation, OnePair):
+                                        return one_pair_calculation
+                                    else:
+                                        high_card_calculation = HandRankingCalculator.calculate_high_card(hand)
+                                        if isinstance(high_card_calculation, HighCard):
+                                            return high_card_calculation
+                                        else:
+                                            raise ValueError("can not calculate hand ranking")
+    
 

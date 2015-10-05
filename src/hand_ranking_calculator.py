@@ -3,17 +3,16 @@ from collections import Counter
 
 class HandRankingCalculator:
 
-    def __init__(self, hand):
-        self.hand = hand
-
-    def is_flush(self):
-        if [card.suit for card in self.hand.cards][1:] == [card.suit for card in self.hand.cards][:-1]:
+    @staticmethod
+    def is_flush(hand):
+        if 1 == len(set([card.suit for card in hand.hand.cards])):
             return True
         else:
             return False
 
-    def is_high_value_straight(self):
-        sorted_cards_by_high_value = sorted([card.high_value for card in self.hand.cards], reverse=True)
+    @staticmethod
+    def is_high_value_straight(hand):
+        sorted_cards_by_high_value = sorted([card.high_value for card in hand.hand.cards], reverse=True)
         is_consecutive_card_high_values = True
         for card_index in range(0, 4):
             if sorted_cards_by_high_value[card_index] - 1 != sorted_cards_by_high_value[card_index + 1]:
@@ -23,8 +22,9 @@ class HandRankingCalculator:
         else:
             return False
 
-    def is_low_value_straight(self):
-        sorted_cards_by_low_value = sorted([card.low_value for card in self.hand.cards], reverse=True)
+    @staticmethod
+    def is_low_value_straight(hand):
+        sorted_cards_by_low_value = sorted([card.low_value for card in hand.hand.cards], reverse=True)
         is_consecutive_card_low_values = True
         for card_index in range(0, 4):
             if sorted_cards_by_low_value[card_index] - 1 != sorted_cards_by_low_value[card_index + 1]:
@@ -34,11 +34,13 @@ class HandRankingCalculator:
         else:
             return False
 
+
     def is_straight(self):
         if self.is_high_value_straight() or self.is_low_value_straight():
             return True
         else:
             return False
+
 
     def is_straight_flush(self):
 
@@ -46,6 +48,7 @@ class HandRankingCalculator:
             return True
         else:
             return False
+
 
     def is_four_of_a_kind(self):
         card_values = [card.high_value for card in self.hand.cards]
@@ -56,6 +59,7 @@ class HandRankingCalculator:
         else:
             return False
 
+
     def is_full_house(self):
         card_values = [card.high_value for card in self.hand.cards]
         distinct_card_values = list(set(card_values))
@@ -64,6 +68,7 @@ class HandRankingCalculator:
             return True
         else:
             return False
+
 
     def is_three_of_a_kind(self):
         card_values = [card.high_value for card in self.hand.cards]
@@ -74,6 +79,7 @@ class HandRankingCalculator:
         else:
             return False
 
+
     def is_two_pair(self):
         card_values = [card.high_value for card in self.hand.cards]
         distinct_card_values = list(set(card_values))
@@ -83,6 +89,7 @@ class HandRankingCalculator:
         else:
             return False
 
+
     def is_one_pair(self):
         distinct_card_values = list(set([card.high_value for card in self.hand.cards]))
         if distinct_card_values.__len__() == 4:
@@ -90,9 +97,15 @@ class HandRankingCalculator:
         else:
             return False
 
+
     def is_high_card(self):
         distinct_card_values = list(set([card.high_value for card in self.hand.cards]))
         if not self.is_straight() and not self.is_flush() and distinct_card_values.__len__() == 5:
             return True
         else:
             return False
+
+    @staticmethod
+    def return_calculated_hand_ranking(hand):
+        if is_straight_flush(hand):
+            return

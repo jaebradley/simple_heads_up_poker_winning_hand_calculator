@@ -162,7 +162,7 @@ class HandRankingCalculator:
             three_of_a_kind_value = max(set(hand.cards), key=hand.cards.count).high_value
             sorted_card_values = sorted([card.value for card in hand.cards if card.value != three_of_a_kind_value], reverse=True)
             first_kicker_value = sorted_card_values[0]
-            second_kicker_value= sorted_card_values[1]
+            second_kicker_value = sorted_card_values[1]
             return ThreeOfAKind(
                 three_of_a_kind_value,
                 first_kicker_value,
@@ -253,5 +253,5 @@ class HandRankingCalculator:
                                             return high_card_calculation
                                         else:
                                             raise ValueError("can not calculate hand ranking")
-    
+
 

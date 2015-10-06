@@ -130,8 +130,8 @@ class Hand:
 
 
 class HandRanking:
-    def __init__(self, rank):
-        self.rank = rank
+    def __init__(self, rank_value):
+        self.rank_value = rank_value
 
 
 class StraightFlush(HandRanking):

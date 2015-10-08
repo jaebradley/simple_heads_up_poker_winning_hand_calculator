@@ -77,6 +77,53 @@ class IdenticalHandRankingHeadsUpResultCalculator:
         else:
             raise RuntimeError("unexpected hand ranking")
 
+    @staticmethod
+    def calculate_result_for_flushes(first_hand_ranking, second_hand_ranking):
+        if isinstance(first_hand_ranking, Flush) and isinstance(second_hand_ranking, Flush):
+            if first_hand_ranking.first_kicker > second_hand_ranking.first_kicker:
+                result = HeadsUpResult.FirstHand
+            elif first_hand_ranking.first_kicker < second_hand_ranking.first_kicker:
+                result = HeadsUpResult.SecondHand
+            else:
+                if first_hand_ranking.second_kicker > second_hand_ranking.second_kicker:
+                    result = HeadsUpResult.FirstHand
+                elif first_hand_ranking.second_kicker < second_hand_ranking.second_kicker:
+                    result = HeadsUpResult.SecondHand
+                else:
+                    if first_hand_ranking.third_kicker > second_hand_ranking.third_kicker:
+                        result = HeadsUpResult.FirstHand
+                    elif first_hand_ranking.third_kicker < second_hand_ranking.third_kicker:
+                        result = HeadsUpResult.SecondHand
+                    else:
+                        if first_hand_ranking.fourth_kicker > second_hand_ranking.fourth_kicker:
+                            result = HeadsUpResult.FirstHand
+                        elif first_hand_ranking.fourth_kicker < second_hand_ranking.fourth_kicker:
+                            result = HeadsUpResult.SecondHand
+                        else:
+                            if first_hand_ranking.fifth_kicker > second_hand_ranking.fifth_kicker:
+                                result = HeadsUpResult.FirstHand
+                            elif first_hand_ranking < second_hand_ranking.fifth_kicker:
+                                result = HeadsUpResult.SecondHand
+                            else:
+                                result = HeadsUpResult.Tie
+            return result
+        else:
+            raise RuntimeError("unexpected hand ranking")
+
+    @staticmethod
+    def calculate_result_for_straights(first_hand_ranking, second_hand_ranking):
+        if isinstance(first_hand_ranking, Straight) and isinstance(second_hand_ranking, Straight):
+            if first_hand_ranking.high_value > second_hand_ranking.high_value:
+                result = HeadsUpResult.FirstHand
+            elif first_hand_ranking.high_value < second_hand_ranking.high_value:
+                result = HeadsUpResult.SecondHand
+            else:
+                result = HeadsUpResult.Tie
+            return result
+        else:
+            raise RuntimeError("unexpected hand ranking")
+
+
 
 
 class HeadsUpResultCalculator:

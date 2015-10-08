@@ -123,6 +123,28 @@ class IdenticalHandRankingHeadsUpResultCalculator:
         else:
             raise RuntimeError("unexpected hand ranking")
 
+    @staticmethod
+    def calculate_result_for_three_of_a_kinds(first_hand_ranking, second_hand_ranking):
+        if isinstance(first_hand_ranking, ThreeOfAKind) and isinstance(second_hand_ranking, ThreeOfAKind):
+            if first_hand_ranking.three_of_a_kind_value > second_hand_ranking.three_of_a_kind_value:
+                result = HeadsUpResult.FirstHand
+            elif first_hand_ranking.three_of_a_kind_value < second_hand_ranking.three_of_a_kind_value:
+                result = HeadsUpResult.SecondHand
+            else:
+                if first_hand_ranking.first_kicker_value > second_hand_ranking.first_kicker_value:
+                    result = HeadsUpResult.FirstHand
+                elif first_hand_ranking.first_kicker_value < second_hand_ranking.first_kicker_value:
+                    result = HeadsUpResult.SecondHand
+                else:
+                    if first_hand_ranking.second_kicker_value > second_hand_ranking.second_kicker_value:
+                        result = HeadsUpResult.FirstHand
+                    elif first_hand_ranking < second_hand_ranking.second_kicker_value:
+                        result = HeadsUpResult.SecondHand
+                    else:
+                        result = HeadsUpResult.Tie
+            return result
+        else:
+            raise RuntimeError("unexpected hand ranking")
 
 
 

@@ -6,7 +6,8 @@ from src.model.hand_ranking import HighCard, OnePair, TwoPair, ThreeOfAKind, Str
 
 class StraightFlushesResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInterface):
 
-    def calculate_result(self, heads_up_hand_rankings):
+    @staticmethod
+    def calculate_result(heads_up_hand_rankings):
         assert isinstance(heads_up_hand_rankings, HeadsUpHandRankings)
         
         if isinstance(heads_up_hand_rankings.first_hand_ranking, StraightFlush) and isinstance(heads_up_hand_rankings.second_hand_ranking, StraightFlush):
@@ -26,7 +27,8 @@ class StraightFlushesResultCalculator(HeadsUpEquivalentHandRankingResultCalculat
 
 class FourOfAKindsResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInterface):
 
-    def calculate_result(self, heads_up_hand_rankings):
+    @staticmethod
+    def calculate_result(heads_up_hand_rankings):
         assert isinstance(heads_up_hand_rankings, HeadsUpHandRankings)
         if isinstance(heads_up_hand_rankings.first_hand_ranking, FourOfAKind) and isinstance(heads_up_hand_rankings.second_hand_ranking, FourOfAKind):
             if heads_up_hand_rankings.first_hand_ranking.four_of_a_kind_value > heads_up_hand_rankings.second_hand_ranking.four_of_a_kind_value:
@@ -50,7 +52,8 @@ class FourOfAKindsResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorI
 
 class FullHousesResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInterface):
 
-    def calculate_result(self, heads_up_hand_rankings):
+    @staticmethod
+    def calculate_result(heads_up_hand_rankings):
         assert isinstance(heads_up_hand_rankings, HeadsUpHandRankings)
         
         if isinstance(heads_up_hand_rankings.first_hand_ranking, FullHouse) and isinstance(heads_up_hand_rankings.second_hand_ranking, FullHouse):
@@ -74,7 +77,9 @@ class FullHousesResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInt
         
 
 class FlushesResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInterface):
-    def calculate_result(self, heads_up_hand_rankings):
+
+    @staticmethod
+    def calculate_result(heads_up_hand_rankings):
         assert isinstance(heads_up_hand_rankings, HeadsUpHandRankings)
 
         if isinstance(heads_up_hand_rankings.first_hand_ranking, Flush) and isinstance(heads_up_hand_rankings.second_hand_ranking, Flush):
@@ -113,7 +118,9 @@ class FlushesResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInterf
         
 
 class StraightsResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInterface):
-    def calculate_result(self, heads_up_hand_rankings):
+
+    @staticmethod
+    def calculate_result(heads_up_hand_rankings):
         assert isinstance(heads_up_hand_rankings, HeadsUpHandRankings)
         
         if isinstance(heads_up_hand_rankings.first_hand_ranking, Straight) and isinstance(heads_up_hand_rankings.second_hand_ranking, Straight):
@@ -127,13 +134,14 @@ class StraightsResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInte
         else:
             raise RuntimeError("unexpected hand ranking")
 
-
     def __init__(self):
         HeadsUpEquivalentHandRankingResultCalculatorInterface.__init__(self)
         
 
 class ThreeOfAKindsResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInterface):
-    def calculate_result(self, heads_up_hand_rankings):
+
+    @staticmethod
+    def calculate_result(heads_up_hand_rankings):
         assert isinstance(heads_up_hand_rankings, HeadsUpHandRankings)
         
         if isinstance(heads_up_hand_rankings.first_hand_ranking, ThreeOfAKind) and isinstance(heads_up_hand_rankings.second_hand_ranking, ThreeOfAKind):

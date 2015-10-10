@@ -3,7 +3,8 @@ from src.interfaces.heads_up_hand_ranking_result_calculator import HeadsUpHandRa
 
 class HeadsUpEquivalentHandRankingResultCalculatorInterface(HeadsUpHandRankingResultCalculatorInterface):
 
-    def calculate_result(self, heads_up_hand_rankings):
+    @staticmethod
+    def calculate_result(heads_up_hand_rankings):
         pass
 
     def __init__(self):

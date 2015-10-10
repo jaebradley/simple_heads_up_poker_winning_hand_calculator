@@ -5,7 +5,9 @@ from src.model.hand_ranking import HighCard, OnePair, TwoPair, ThreeOfAKind, Str
 
 
 class HeadsUpDifferentHandRankingResultCalculator(HeadsUpHandRankingResultCalculatorInterface):
-    def calculate_result(self, heads_up_hand_rankings):
+
+    @staticmethod
+    def calculate_result(heads_up_hand_rankings):
 
         assert isinstance(heads_up_hand_rankings, HeadsUpHandRankings)
 

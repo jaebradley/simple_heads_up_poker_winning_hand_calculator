@@ -2,22 +2,21 @@ from src.model.heads_up import HeadsUp
 from src.interfaces.heads_up_result_calculator import HeadsUpResultCalculatorInterface
 from src.impl.hand_ranking_calculator import HandRankingCalculator
 from src.model.heads_up_hand_rankings import HeadsUpHandRankings
-from src.impl.heads_up_equivalent_hand_ranking_result_calculators import ThreeOfAKindsResultCalculator, StraightsResultCalculator, FlushesResultCalculator, FullHousesResultCalculator, FourOfAKindsResultCalculator, StraightFlushesResultCalculator
+from src.impl.heads_up_equivalent_hand_ranking_result_calculators import HighCardsResultCalculator, OnePairsResultCalculator, TwoPairsResultCalculator, ThreeOfAKindsResultCalculator, StraightsResultCalculator, FlushesResultCalculator, FullHousesResultCalculator, FourOfAKindsResultCalculator, StraightFlushesResultCalculator
 from src.impl.heads_up_different_hand_ranking_result_calculator import HeadsUpDifferentHandRankingResultCalculator
 from src.model.hand_ranking import HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush
 
 
 class HeadsUpResultCalculator(HeadsUpResultCalculatorInterface):
-    def calculate_result(self, heads_up):
+
+    @staticmethod
+    def calculate_result(heads_up):
 
         assert isinstance(heads_up, HeadsUp)
 
-        first_hand_ranking = HandRankingCalculator.calculate_hand_ranking(heads_up.first_hand)
-        second_hand_ranking = HandRankingCalculator.calculate_hand_ranking(heads_up.second_hand)
-
         heads_up_hand_rankings = HeadsUpHandRankings(
-            first_hand_ranking,
-            second_hand_ranking
+            HandRankingCalculator.calculate_hand_ranking(heads_up.first_hand),
+            HandRankingCalculator.calculate_hand_ranking(heads_up.second_hand)
         )
 
         if not heads_up_hand_rankings.are_same_hand_rankings():
@@ -37,10 +36,19 @@ class HeadsUpResultCalculator(HeadsUpResultCalculatorInterface):
                 result = FlushesResultCalculator.calculate_result(heads_up_hand_rankings)
 
             elif isinstance(heads_up_hand_rankings.first_hand_ranking, Straight):
-                result = StraightFlushesResultCalculator.calculate_result(heads_up_hand_rankings)
+                result = StraightsResultCalculator.calculate_result(heads_up_hand_rankings)
 
             elif isinstance(heads_up_hand_rankings.first_hand_ranking, ThreeOfAKind):
                 result = ThreeOfAKindsResultCalculator.calculate_result(heads_up_hand_rankings)
+
+            elif isinstance(heads_up_hand_rankings.first_hand_ranking, TwoPair):
+                result = TwoPairsResultCalculator.calculate_result(heads_up_hand_rankings)
+
+            elif isinstance(heads_up_hand_rankings.first_hand_ranking, OnePair):
+                result = OnePairsResultCalculator.calculate_result(heads_up_hand_rankings)
+
+            elif isinstance(heads_up_hand_rankings.first_hand_ranking, HighCard):
+                result = HighCardsResultCalculator.calculate_result(heads_up_hand_rankings)
 
             else:
                 raise RuntimeError("unexpected hand ranking")

@@ -1,6 +1,6 @@
 from collections import Counter
-from model import Two, Three, Four, Five, Ace
-from model import HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush
+from src.model.card import Two, Three, Four, Five, Ace
+from src.model.hand_ranking import HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush
 
 
 class HandRankingCalculator:
@@ -47,7 +47,7 @@ class HandRankingCalculator:
 
     @staticmethod
     def is_full_house(hand):
-        card_values = [card.high_value for card in hand.cards]
+        card_values = [card.value for card in hand.cards]
         distinct_card_values = list(set(card_values))
         card_counter = Counter(card_values)
         if distinct_card_values.__len__() == 2 and (card_counter[card_values[0]] == 3 or card_counter[card_values[0]] == 2):
@@ -57,7 +57,7 @@ class HandRankingCalculator:
 
     @staticmethod
     def is_three_of_a_kind(hand):
-        card_values = [card.high_value for card in hand.cards]
+        card_values = [card.value for card in hand.cards]
         distinct_card_values = list(set(card_values))
         card_counter = Counter(card_values)
         if distinct_card_values.__len__() == 3 and (card_counter[card_values[0]] == 3 or card_counter[card_values[1]] == 3 or card_counter[distinct_card_values[2]] == 3):
@@ -67,7 +67,7 @@ class HandRankingCalculator:
 
     @staticmethod
     def is_two_pair(hand):
-        card_values = [card.high_value for card in hand.cards]
+        card_values = [card.value for card in hand.cards]
         distinct_card_values = list(set(card_values))
         card_counter = Counter(card_values)
         if distinct_card_values.__len__() == 3 and (card_counter[card_values[0]] == 2 or card_counter[card_values[1]] == 2 or card_counter[card_values[2]] == 2):
@@ -77,7 +77,7 @@ class HandRankingCalculator:
 
     @staticmethod
     def is_one_pair(hand):
-        distinct_card_values = list(set([card.high_value for card in hand.cards]))
+        distinct_card_values = list(set([card.value for card in hand.cards]))
         if distinct_card_values.__len__() == 4:
             return True
         else:
@@ -85,7 +85,7 @@ class HandRankingCalculator:
 
     @staticmethod
     def is_high_card(hand):
-        distinct_card_values = list(set([card.high_value for card in hand.cards]))
+        distinct_card_values = list(set([card.value for card in hand.cards]))
         if not HandRankingCalculator.is_straight(hand) and not HandRankingCalculator.is_flush(hand) and distinct_card_values.__len__() == 5:
             return True
         else:
@@ -114,8 +114,9 @@ class HandRankingCalculator:
             else:
                 four_of_a_kind_value = card_values[1]
                 kicker = card_values[0]
-            FourOfAKind(four_of_a_kind_value, kicker)
-        return False
+            return FourOfAKind(four_of_a_kind_value, kicker)
+        else:
+            return False
 
     @staticmethod
     def calculate_full_house(hand):
@@ -134,7 +135,7 @@ class HandRankingCalculator:
 
     @staticmethod
     def calculate_straight(hand):
-        if HandRankingCalculator.is_straight_flush(hand):
+        if HandRankingCalculator.is_straight(hand):
             high_value = sorted([card.value for card in hand.cards], reverse=True)[0]
             return Straight(high_value)
         else:
@@ -253,5 +254,3 @@ class HandRankingCalculator:
                                             return high_card_calculation
                                         else:
                                             raise ValueError("can not calculate hand ranking")
-
-

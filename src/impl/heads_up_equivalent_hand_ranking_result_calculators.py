@@ -167,3 +167,110 @@ class ThreeOfAKindsResultCalculator(HeadsUpEquivalentHandRankingResultCalculator
 
     def __init__(self):
         HeadsUpEquivalentHandRankingResultCalculatorInterface.__init__(self)
+
+
+class TwoPairsResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInterface):
+
+    @staticmethod
+    def calculate_result(heads_up_hand_rankings):
+        assert isinstance(heads_up_hand_rankings, HeadsUpHandRankings)
+
+        if isinstance(heads_up_hand_rankings.first_hand_ranking, TwoPair) and isinstance(heads_up_hand_rankings.second_hand_ranking, TwoPair):
+            if heads_up_hand_rankings.first_hand_ranking.highest_pair_value > heads_up_hand_rankings.second_hand_ranking.highest_pair_value:
+                result = HeadsUpResult.FirstHand
+            elif heads_up_hand_rankings.first_hand_ranking.highest_pair_value < heads_up_hand_rankings.second_hand_ranking.highest_pair_value:
+                result = HeadsUpResult.SecondHand
+            else:
+                if heads_up_hand_rankings.first_hand_ranking.lowest_pair_value > heads_up_hand_rankings.second_hand_ranking.lowest_pair_value:
+                    result = HeadsUpResult.FirstHand
+                elif heads_up_hand_rankings.first_hand_ranking.lowest_pair_value < heads_up_hand_rankings.second_hand_ranking.lowest_pair_value:
+                    result = HeadsUpResult.SecondHand
+                else:
+                    if heads_up_hand_rankings.first_hand_ranking.kicker_value > heads_up_hand_rankings.second_hand_ranking.kicker_value:
+                        result = HeadsUpResult.FirstHand
+                    elif heads_up_hand_rankings.first_hand_ranking.kicker_value < heads_up_hand_rankings.second_hand_ranking.kicker_value:
+                        result = HeadsUpResult.SecondHand
+                    else:
+                        result = HeadsUpResult.Tie
+            return result
+        else:
+            raise RuntimeError("unexpected hand ranking")
+
+    def __init__(self):
+        HeadsUpEquivalentHandRankingResultCalculatorInterface.__init__(self)
+
+
+class OnePairsResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInterface):
+
+    @staticmethod
+    def calculate_result(heads_up_hand_rankings):
+        assert isinstance(heads_up_hand_rankings, HeadsUpHandRankings)
+
+        if isinstance(heads_up_hand_rankings.first_hand_ranking, OnePair) and isinstance(heads_up_hand_rankings.second_hand_ranking, OnePair):
+            if heads_up_hand_rankings.first_hand_ranking.pair_value > heads_up_hand_rankings.second_hand_ranking.pair_value:
+                result = HeadsUpResult.FirstHand
+            elif heads_up_hand_rankings.first_hand_ranking.pair_value < heads_up_hand_rankings.second_hand_ranking.pair_value:
+                result = HeadsUpResult.SecondHand
+            else:
+                if heads_up_hand_rankings.first_hand_ranking.first_kicker_value > heads_up_hand_rankings.second_hand_ranking.first_kicker_value:
+                    result = HeadsUpResult.FirstHand
+                elif heads_up_hand_rankings.first_hand_ranking.first_kicker_value < heads_up_hand_rankings.second_hand_ranking.first_kicker_value:
+                    result = HeadsUpResult.SecondHand
+                else:
+                    if heads_up_hand_rankings.first_hand_ranking.second_kicker_value > heads_up_hand_rankings.second_hand_ranking.second_kicker_value:
+                        result = HeadsUpResult.FirstHand
+                    elif heads_up_hand_rankings.first_hand_ranking.second_kicker_value < heads_up_hand_rankings.second_hand_ranking.second_kicker_value:
+                        result = HeadsUpResult.SecondHand
+                    else:
+                        if heads_up_hand_rankings.first_hand_ranking.third_kicker_value > heads_up_hand_rankings.second_hand_ranking.third_kicker_value:
+                            result = HeadsUpResult.FirstHand
+                        elif heads_up_hand_rankings.first_hand_ranking.third_kicker_value < heads_up_hand_rankings.second_hand_ranking.third_kicker_value:
+                            result = HeadsUpResult.SecondHand
+                        else:
+                            result = HeadsUpResult.Tie
+            return result
+        else:
+            raise RuntimeError("unexpected hand ranking")
+
+    def __init__(self):
+        HeadsUpEquivalentHandRankingResultCalculatorInterface.__init__(self)
+
+
+class HighCardsResultCalculator(HeadsUpEquivalentHandRankingResultCalculatorInterface):
+    @staticmethod
+    def calculate_result(heads_up_hand_rankings):
+        assert isinstance(heads_up_hand_rankings, HeadsUpHandRankings)
+
+        if isinstance(heads_up_hand_rankings.first_hand_ranking, HighCard) and isinstance(heads_up_hand_rankings.second_hand_ranking, HighCard):
+            if heads_up_hand_rankings.first_hand_ranking.high_card_value > heads_up_hand_rankings.second_hand_ranking.high_card_value:
+                result = HeadsUpResult.FirstHand
+            elif heads_up_hand_rankings.first_hand_ranking.high_card_value < heads_up_hand_rankings.second_hand_ranking.high_card_value:
+                result = HeadsUpResult.SecondHand
+            else:
+                if heads_up_hand_rankings.first_hand_ranking.first_kicker_value > heads_up_hand_rankings.second_hand_ranking.first_kicker_value:
+                    result = HeadsUpResult.FirstHand
+                elif heads_up_hand_rankings.first_hand_ranking.first_kicker_value < heads_up_hand_rankings.second_hand_ranking.first_kicker_value:
+                    result = HeadsUpResult.SecondHand
+                else:
+                    if heads_up_hand_rankings.first_hand_ranking.second_kicker_value > heads_up_hand_rankings.second_hand_ranking.second_kicker_value:
+                        result = HeadsUpResult.FirstHand
+                    elif heads_up_hand_rankings.first_hand_ranking.second_kicker_value < heads_up_hand_rankings.second_hand_ranking.second_kicker_value:
+                        result = HeadsUpResult.SecondHand
+                    else:
+                        if heads_up_hand_rankings.first_hand_ranking.third_kicker_value > heads_up_hand_rankings.second_hand_ranking.third_kicker_value:
+                            result = HeadsUpResult.FirstHand
+                        elif heads_up_hand_rankings.first_hand_ranking.third_kicker_value < heads_up_hand_rankings.second_hand_ranking.third_kicker_value:
+                            result = HeadsUpResult.SecondHand
+                        else:
+                            if heads_up_hand_rankings.first_hand_ranking.fourth_kicker_value > heads_up_hand_rankings.second_hand_ranking.fourth_kicker_value:
+                                result = HeadsUpResult.FirstHand
+                            elif heads_up_hand_rankings.first_hand_ranking.fourth_kicker_value < heads_up_hand_rankings.second_hand_ranking.fourth_kicker_value:
+                                result = HeadsUpResult.SecondHand
+                            else:
+                                result = HeadsUpResult.Tie
+            return result
+        else:
+            raise RuntimeError("unexpected hand ranking")
+
+    def __init__(self):
+        HeadsUpEquivalentHandRankingResultCalculatorInterface.__init__(self)

@@ -15,12 +15,7 @@ The cards are valued in the order:
 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King, Ace.
 """
 
-from model import HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush
-from hand_ranking_calculator import HandRankingCalculator
-
-
-class HeadsUpResult:
-    FirstHand, SecondHand, Tie = range(3)
+from src.impl.hand_ranking_calculator import HandRankingCalculator
 
 
 class IdenticalHandRankingHeadsUpResultCalculator:
@@ -145,6 +140,9 @@ class IdenticalHandRankingHeadsUpResultCalculator:
             return result
         else:
             raise RuntimeError("unexpected hand ranking")
+
+    @staticmethod
+    def calculate_result_for_two_pair(first_hand):
 
 
 

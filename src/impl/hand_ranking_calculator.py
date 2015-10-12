@@ -1,16 +1,14 @@
-from collections import Counter
-from src.model.card import Two, Three, Four, Five, Ace
+from src.interfaces.hand_ranking_calculator_interface import HandRankingCalculatorInterface
 from src.model.hand_ranking import HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush
+from src.impl.hand_ranking_verifier import FourOfAKindVerifier, StraightFlushVerifier
+from collections import Counter
 
 
-class HandRankingCalculator:
-
-    def __init__(self):
-        pass
+class StraightFlushCalculator(HandRankingCalculatorInterface):
 
     @staticmethod
-    def calculate_straight_flush(hand):
-        if HandRankingCalculator.is_straight_flush(hand):
+    def calculate_hand_ranking(hand):
+        if StraightFlushVerifier.verify_hand_ranking(hand):
             high_card_value = 0
             high_card = None
             for card in hand.cards:
@@ -18,11 +16,17 @@ class HandRankingCalculator:
                     high_card = card
             return StraightFlush(high_card)
         else:
-            return False
+            raise RuntimeError("hand is not straight flush")
+
+    def __init__(self):
+        HandRankingCalculatorInterface.__init__(self)
+
+
+class FourOfAKindCalculator(HandRankingCalculatorInterface):
 
     @staticmethod
-    def calculate_four_of_a_kind(hand):
-        if HandRankingCalculator.is_four_of_a_kind(hand):
+    def calculate_hand_ranking(hand):
+        if FourOfAKindVerifier.verify_hand_ranking(hand):
             card_values = [card.value for card in hand.cards]
             card_counter = Counter(card_values)
             if 4 == card_counter[card_values[0]]:
@@ -33,7 +37,16 @@ class HandRankingCalculator:
                 kicker = card_values[0]
             return FourOfAKind(four_of_a_kind_value, kicker)
         else:
-            return False
+            raise RuntimeError("hand is not four of a kind")
+
+    def __init__(self):
+        HandRankingCalculatorInterface.__init__(self)
+
+
+class HandRankingCalculator:
+
+    def __init__(self):
+        pass
 
     @staticmethod
     def calculate_full_house(hand):

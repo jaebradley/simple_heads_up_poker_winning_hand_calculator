@@ -110,3 +110,31 @@ class TwoPairVerifier(HandRankingVerifierInterface):
 
     def __init__(self):
         HandRankingVerifierInterface.__init__(self)
+
+
+class OnePairVerifier(HandRankingVerifierInterface):
+
+    @staticmethod
+    def verify_hand_ranking(hand):
+        distinct_card_values = list(set([card.value for card in hand.cards]))
+        if distinct_card_values.__len__() == 4:
+            return True
+        else:
+            return False
+
+    def __init__(self):
+        HandRankingVerifierInterface.__init__(self)
+
+
+class HighValueVerifier(HandRankingVerifierInterface):
+
+    @staticmethod
+    def verify_hand_ranking(hand):
+        distinct_card_values = list(set([card.value for card in hand.cards]))
+        if not StraightVerifier.verify_hand_ranking(hand) and not FlushVerifier.verify_hand_ranking(hand) and distinct_card_values.__len__() == 5:
+            return True
+        else:
+            return False
+
+    def __init__(self):
+        HandRankingVerifierInterface.__init__(self)

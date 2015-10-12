@@ -126,7 +126,7 @@ class OnePairVerifier(HandRankingVerifierInterface):
         HandRankingVerifierInterface.__init__(self)
 
 
-class HighValueVerifier(HandRankingVerifierInterface):
+class HighCardVerifier(HandRankingVerifierInterface):
 
     @staticmethod
     def verify_hand_ranking(hand):

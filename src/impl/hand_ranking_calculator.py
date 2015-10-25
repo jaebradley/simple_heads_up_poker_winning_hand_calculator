@@ -2,6 +2,7 @@ from src.interfaces.hand_ranking_calculator_interface import HandRankingCalculat
 from src.model.hand_ranking import HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush
 from src.impl.hand_ranking_verifier import HighCardVerifier, OnePairVerifier, TwoPairVerifier, ThreeOfAKindVerifier, StraightVerifier, FlushVerifier, FullHouseVerifier, FourOfAKindVerifier, StraightFlushVerifier
 from collections import Counter
+from src.model.card import Two, Three, Four, Five, Ace
 
 
 class StraightFlushCalculator(HandRankingCalculatorInterface):
@@ -9,11 +10,16 @@ class StraightFlushCalculator(HandRankingCalculatorInterface):
     @staticmethod
     def calculate_hand_ranking(hand):
         if StraightFlushVerifier.verify_hand_ranking(hand):
+            # Check for low straight case
+            if any(isinstance(card, Ace) for card in hand.cards) and any(isinstance(card, Two) for card in hand.cards) and any(isinstance(card, Three) for card in hand.cards) and any(isinstance(card, Four) for card in hand.cards) and any(isinstance(card, Five) for card in hand.cards):
+                high_card = [card for card in hand.cards if isinstance(card, Five)][0]
+                return StraightFlush(high_card)
             high_card_value = 0
             high_card = None
             for card in hand.cards:
                 if card.value > high_card_value:
                     high_card = card
+                    high_card_value = card.value
             return StraightFlush(high_card)
         else:
             raise RuntimeError("hand is not straight flush")
@@ -69,6 +75,10 @@ class StraightCalculator(HandRankingCalculatorInterface):
     @staticmethod
     def calculate_hand_ranking(hand):
         if StraightVerifier.verify_hand_ranking(hand):
+            # Check for low straight case
+            if any(isinstance(card, Ace) for card in hand.cards) and any(isinstance(card, Two) for card in hand.cards) and any(isinstance(card, Three) for card in hand.cards) and any(isinstance(card, Four) for card in hand.cards) and any(isinstance(card, Five) for card in hand.cards):
+                high_value = [card for card in hand.cards if isinstance(card, Five)][0].value
+                return Straight(high_value)
             high_value = sorted([card.value for card in hand.cards], reverse=True)[0]
             return Straight(high_value)
         else:

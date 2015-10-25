@@ -17,8 +17,8 @@ one_pair_hand = Hand(
         Two(Suit.Clubs),
         Two(Suit.Diamonds),
         Three(Suit.Clubs),
-        Four(Suit.Diamonds),
-        Five(Suit.Hearts)
+        Five(Suit.Hearts),
+        Four(Suit.Diamonds)
     ]
 )
 

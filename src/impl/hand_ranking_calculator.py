@@ -158,14 +158,15 @@ class OnePairCalculator(HandRankingCalculatorInterface):
     @staticmethod
     def calculate_hand_ranking(hand):
         if OnePairVerifier.verify_hand_ranking(hand):
-            hand_value_counter = Counter([card.high_value for card in hand.cards])
+            hand_value_counter = Counter([card.value for card in hand.cards])
             hand_most_common_values = hand_value_counter.most_common()
             pair_value = hand_most_common_values[0][0]
+            sorted_values = sorted([card.value for card in hand.cards if card.value != pair_value], reverse=True)
             return OnePair(
                 pair_value,
-                hand_most_common_values[1][0],
-                hand_most_common_values[2][0],
-                hand_most_common_values[3][0]
+                sorted_values[0],
+                sorted_values[1],
+                sorted_values[2]
             )
         else:
             raise RuntimeError("hand is not one pair")

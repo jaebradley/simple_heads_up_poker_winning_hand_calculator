@@ -2,7 +2,6 @@ from unittest import TestCase
 from src.model.hand_ranking import StraightFlush
 from src.impl.hand_ranking_calculator import StraightFlushCalculator
 from utils import low_straight_flush_hand, high_straight_flush_hand, high_card_hand
-from src.model.card import Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace
 from src.model.suit import Suit
 
 

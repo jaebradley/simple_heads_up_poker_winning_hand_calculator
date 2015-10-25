@@ -64,21 +64,21 @@ four_of_a_kind_hand = Hand(
 
 low_straight_hand = Hand(
     [
-        Ace(Suit.Spades),
         Two(Suit.Clubs),
         Three(Suit.Hearts),
         Four(Suit.Spades),
-        Five(Suit.Diamonds)
+        Five(Suit.Diamonds),
+        Ace(Suit.Spades)
     ]
 )
 
 high_straight_hand = Hand(
     [
-        Ace(Suit.Spades),
         Jack(Suit.Diamonds),
         King(Suit.Clubs),
         Ten(Suit.Hearts),
-        Queen(Suit.Clubs)
+        Queen(Suit.Clubs),
+        Ace(Suit.Spades)
     ]
 )
 

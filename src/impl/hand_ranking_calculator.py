@@ -74,7 +74,7 @@ class StraightCalculator(HandRankingCalculatorInterface):
 
     @staticmethod
     def calculate_hand_ranking(hand):
-        if StraightVerifier.verify_hand_ranking(hand):
+        if StraightVerifier.verify_hand_ranking(hand) and not StraightFlushVerifier.verify_hand_ranking(hand):
             # Check for low straight case
             if any(isinstance(card, Ace) for card in hand.cards) and any(isinstance(card, Two) for card in hand.cards) and any(isinstance(card, Three) for card in hand.cards) and any(isinstance(card, Four) for card in hand.cards) and any(isinstance(card, Five) for card in hand.cards):
                 high_value = [card for card in hand.cards if isinstance(card, Five)][0].value
@@ -82,7 +82,7 @@ class StraightCalculator(HandRankingCalculatorInterface):
             high_value = sorted([card.value for card in hand.cards], reverse=True)[0]
             return Straight(high_value)
         else:
-            return False
+            raise RuntimeError("hand is not straight")
 
     def __init__(self):
         HandRankingCalculatorInterface.__init__(self)
@@ -92,7 +92,7 @@ class FlushCalculator(HandRankingCalculatorInterface):
 
     @staticmethod
     def calculate_hand_ranking(hand):
-        if FlushVerifier.verify_hand_ranking(hand):
+        if FlushVerifier.verify_hand_ranking(hand) and not StraightFlushVerifier.verify_hand_ranking(hand):
             suit = hand.cards[0].suit
             sorted_card_values = sorted([card.value for card in hand.cards], reverse=True)
             return Flush(
@@ -104,7 +104,7 @@ class FlushCalculator(HandRankingCalculatorInterface):
                 fifth_kicker=sorted_card_values[4]
             )
         else:
-            return False
+            raise RuntimeError("hand is not flush")
 
     def __init__(self):
         HandRankingCalculatorInterface.__init__(self)
@@ -125,7 +125,7 @@ class ThreeOfAKindCalculator(HandRankingCalculatorInterface):
                 second_kicker_value
             )
         else:
-            return False
+            raise RuntimeError("hand is not three of a kind")
 
     def __init__(self):
         HandRankingCalculatorInterface.__init__(self)
@@ -147,7 +147,7 @@ class TwoPairCalculator(HandRankingCalculatorInterface):
                 hand_kicker_value
             )
         else:
-            return False
+            raise RuntimeError("hand is not two pair")
 
     def __init__(self):
         HandRankingCalculatorInterface.__init__(self)
@@ -167,6 +167,8 @@ class OnePairCalculator(HandRankingCalculatorInterface):
                 hand_most_common_values[2][0],
                 hand_most_common_values[3][0]
             )
+        else:
+            raise RuntimeError("hand is not one pair")
 
     def __init__(self):
         HandRankingCalculatorInterface.__init__(self)
@@ -186,7 +188,7 @@ class HighCardCalculator(HandRankingCalculatorInterface):
                 sorted_card_values[4]
             )
         else:
-            return False
+            raise RuntimeError("hand is not high card")
 
     def __init__(self):
         HandRankingCalculatorInterface.__init__(self)

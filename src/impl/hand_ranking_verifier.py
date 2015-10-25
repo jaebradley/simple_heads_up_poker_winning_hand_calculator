@@ -87,7 +87,7 @@ class ThreeOfAKindVerifier(HandRankingVerifierInterface):
         card_values = [card.value for card in hand.cards]
         distinct_card_values = list(set(card_values))
         card_counter = Counter(card_values)
-        if distinct_card_values.__len__() == 3 and (card_counter[card_values[0]] == 3 or card_counter[card_values[1]] == 3 or card_counter[distinct_card_values[2]] == 3):
+        if distinct_card_values.__len__() == 3 and (card_counter[card_values[0]] == 3 or card_counter[card_values[1]] == 3 or card_counter[card_values[2]] == 3):
             return True
         else:
             return False

@@ -9,11 +9,11 @@ class TestThreeOfAKindVerifier(TestCase):
     def test_expected(self):
         three_of_a_kind_hand = Hand(
             [
-                Two(Suit.Hearts),
                 Two(Suit.Spades),
                 Two(Suit.Clubs),
                 Four(Suit.Spades),
-                Five(Suit.Clubs)
+                Five(Suit.Clubs),
+                Two(Suit.Hearts),
             ]
         )
 

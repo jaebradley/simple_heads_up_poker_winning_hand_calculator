@@ -48,7 +48,7 @@ three_of_a_kind_hand = Hand(
         Two(Suit.Diamonds),
         Three(Suit.Clubs),
         Three(Suit.Diamonds),
-        Three(Suit.Clubs)
+        Three(Suit.Hearts)
     ]
 )
 

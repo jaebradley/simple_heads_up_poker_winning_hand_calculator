@@ -84,10 +84,10 @@ high_straight_hand = Hand(
 
 flush_hand = Hand(
     [
-        Two(Suit.Clubs),
-        Three(Suit.Clubs),
         Four(Suit.Clubs),
         Jack(Suit.Clubs),
+        Two(Suit.Clubs),
+        Three(Suit.Clubs),
         King(Suit.Clubs)
     ]
 )

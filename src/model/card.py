@@ -4,7 +4,7 @@ class Card:
         self.value = value
         self.suit = suit
 
-        assert 14 > self.value > 1
+        assert 15 > self.value > 1
 
     def __str__(self):
         return "{0} - {1}".format(self.value, self.suit)

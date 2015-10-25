@@ -136,7 +136,7 @@ class TwoPairCalculator(HandRankingCalculatorInterface):
     @staticmethod
     def calculate_hand_ranking(hand):
         if TwoPairVerifier.verify_hand_ranking(hand):
-            hand_value_counter = Counter([card.high_value for card in hand.cards])
+            hand_value_counter = Counter([card.value for card in hand.cards])
             hand_most_common_values = hand_value_counter.most_common()
             hand_highest_pair_value = max(hand_most_common_values[0][0], hand_most_common_values[1][0])
             hand_lowest_pair_value = min(hand_most_common_values[0][0], hand_most_common_values[1][0])

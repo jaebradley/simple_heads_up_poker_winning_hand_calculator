@@ -1,6 +1,6 @@
 from src.interfaces.hand_ranking_calculator_interface import HandRankingCalculatorInterface
 from src.model.hand_ranking import HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush
-from src.impl.hand_ranking_verifier import HighCardVerifier, OnePairVerifier, TwoPairVerifier, IsThreeOfAKindVerifier, StraightVerifier, FlushVerifier, FullHouseVerifier, FourOfAKindVerifier, StraightFlushVerifier
+from src.impl.hand_ranking_verifier import HighCardVerifier, OnePairVerifier, TwoPairVerifier, ThreeOfAKindVerifier, StraightVerifier, FlushVerifier, FullHouseVerifier, FourOfAKindVerifier, StraightFlushVerifier
 from collections import Counter
 
 
@@ -104,7 +104,7 @@ class ThreeOfAKindCalculator(HandRankingCalculatorInterface):
 
     @staticmethod
     def calculate_hand_ranking(hand):
-        if IsThreeOfAKindVerifier.verify_hand_ranking(hand):
+        if ThreeOfAKindVerifier.verify_hand_ranking(hand):
             three_of_a_kind_value = max(set(hand.cards), key=hand.cards.count).high_value
             sorted_card_values = sorted([card.value for card in hand.cards if card.value != three_of_a_kind_value], reverse=True)
             first_kicker_value = sorted_card_values[0]
@@ -204,7 +204,7 @@ class HandRankingCalculator(HandRankingCalculatorInterface):
                         if StraightVerifier.verify_hand_ranking(hand):
                             return StraightCalculator.calculate_hand_ranking(hand)
                         else:
-                            if IsThreeOfAKindVerifier.verify_hand_ranking(hand):
+                            if ThreeOfAKindVerifier.verify_hand_ranking(hand):
                                 return ThreeOfAKindCalculator.calculate_hand_ranking(hand)
                             else:
                                 if TwoPairVerifier.verify_hand_ranking(hand):

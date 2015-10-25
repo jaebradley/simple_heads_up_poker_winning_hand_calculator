@@ -80,7 +80,7 @@ class FullHouseVerifier(HandRankingVerifierInterface):
         HandRankingVerifierInterface.__init__(self)
 
 
-class IsThreeOfAKindVerifier(HandRankingVerifierInterface):
+class ThreeOfAKindVerifier(HandRankingVerifierInterface):
 
     @staticmethod
     def verify_hand_ranking(hand):
